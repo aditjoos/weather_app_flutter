@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Weather App - Flutter UI Challenge by aditjoos',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
@@ -31,6 +32,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  bool _cuacaDisiniIsCollapsed = false;
+  bool _isContentScrollable = false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -44,116 +48,164 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: MyConstants().backgroundColor,
       body: Container(
+        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: 55.0,),
-                  Text('Cuaca Disini', style: GoogleFonts.montserrat(fontWeight: FontWeight.w800, fontSize: 48.0, color: MyConstants().weatherDarkBackground)),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 55.0),
-                    child: Text('Situasi cuaca dimana kamu berada saat ini.', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 18.0, color: Colors.black54), textAlign: TextAlign.center,),
+            SizedBox(height: 45.0,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                InkWell(
+                  onTap: (){},
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(LineAwesomeIcons.cog, color: MyConstants().weatherDarkBackground,),
                   ),
-                  SizedBox(height: 30.0,),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18.0),
-                      color: MyConstants().weatherDarkBackground
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: (){},
-                        borderRadius: BorderRadius.circular(18.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('Pasuruan', style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 32.0, color: Colors.white)),
-                                      Text('Sel, 8 Des 13:47', style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 18.0, color: MyConstants().blueAccent),),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-                                    child: Image.asset('assets/png/weather/glass/thunder.png', width: 100,),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('22°C', style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 24.0, color: MyConstants().blueAccent)),
-                                      Text('Petir', style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 18.0, color: Colors.white),),
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text('Detail', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 18.0, color: Colors.white),),
-                                      Icon(LineAwesomeIcons.angle_right, color: Colors.white,),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: MyConstants().yellowAccent
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: (){},
+                      splashColor: Colors.yellow[700],
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('Tambah kota baru', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 14.0, color: MyConstants().weatherDarkBackground),),
+                            SizedBox(width: 5.0),
+                            Icon(LineAwesomeIcons.plus, color: MyConstants().weatherDarkBackground,),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 15.0,),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18.0),
-                color: MyConstants().yellowAccent
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: (){},
-                  splashColor: Colors.yellow[700],
-                  borderRadius: BorderRadius.circular(18.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Tambah kota baru', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 18.0, color: MyConstants().weatherDarkBackground),),
-                        Icon(LineAwesomeIcons.angle_right, color: MyConstants().weatherDarkBackground,),
-                      ],
-                    ),
+            AnimatedCrossFade(
+              crossFadeState: _cuacaDisiniIsCollapsed ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              duration: Duration(milliseconds: 800),
+              firstCurve: Curves.easeInOutCubic,
+              secondCurve: Curves.easeInOutCubic,
+              sizeCurve: Curves.easeInOutCubic,
+              firstChild: CuacaDisiniNotCollapsed(),
+              secondChild: CuacaDisiniIsCollapsed(),
+            ),
+            SizedBox(height: 20.0,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text('Kota favorit', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700, color: MyConstants().weatherDarkBackground),),
+              ],
+            ),
+            SizedBox(height: 20.0,),
+            Expanded(
+              child: NotificationListener<ScrollUpdateNotification>(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          KotaFavorit(
+                            isTerang: true,
+                            namaKota: 'Malang',
+                            suhu: 27,
+                            kondisi: 'Cerah berawan',
+                            gambarIconCuaca: 'assets/png/weather/glass/partly_cloudy.png',
+                          ),
+                          KotaFavorit(
+                            isTerang: false,
+                            namaKota: 'Lawang',
+                            suhu: 21,
+                            kondisi: 'Hujan',
+                            gambarIconCuaca: 'assets/png/weather/glass/rainy.png',
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.0,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          KotaFavorit(
+                            isTerang: false,
+                            namaKota: 'Purwodadi',
+                            suhu: 20,
+                            kondisi: 'Hujan dan petir',
+                            gambarIconCuaca: 'assets/png/weather/glass/thunder.png',
+                          ),
+                          KotaFavorit(
+                            isTerang: true,
+                            namaKota: 'Pasuruan',
+                            suhu: 28,
+                            kondisi: 'Berawan',
+                            gambarIconCuaca: 'assets/png/weather/glass/cloudy.png',
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.0,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          KotaFavorit(
+                            isTerang: true,
+                            namaKota: 'Sukerojo',
+                            suhu: 29,
+                            kondisi: 'Cerah',
+                            gambarIconCuaca: 'assets/png/weather/glass/sunny.png',
+                          ),
+                          KotaFavorit(
+                            isTerang: true,
+                            namaKota: 'Pandaan',
+                            suhu: 30,
+                            kondisi: 'Cerah',
+                            gambarIconCuaca: 'assets/png/weather/glass/sunny.png',
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.0,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          KotaFavorit(
+                            isTerang: false,
+                            namaKota: 'Arjosari',
+                            suhu: 23,
+                            kondisi: 'Hujan',
+                            gambarIconCuaca: 'assets/png/weather/glass/rainy.png',
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.0,),
+                    ],
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
+                onNotification: (t) {
+                  double position = 0;
 
-                  ],
-                ),
+                  // scroll down
+                  if(t.metrics.pixels > position && t.metrics.pixels > 50) {
+                    if(!_cuacaDisiniIsCollapsed) setState(() => _cuacaDisiniIsCollapsed = true);
+                  }
+                  // scroll up
+                  else {
+                    if(_cuacaDisiniIsCollapsed) setState(() => _cuacaDisiniIsCollapsed = false);
+                  }
+                  
+                  position = t.metrics.pixels;
+                },
               ),
             )
           ],
