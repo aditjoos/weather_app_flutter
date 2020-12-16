@@ -11,6 +11,12 @@ class MyConstants {
 }
 
 class CuacaDisiniNotCollapsed extends StatelessWidget {
+  CuacaDisiniNotCollapsed({
+    this.onTap,
+  });
+
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +40,7 @@ class CuacaDisiniNotCollapsed extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: (){},
+                onTap: onTap,
                 borderRadius: BorderRadius.circular(18.0),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -90,6 +96,12 @@ class CuacaDisiniNotCollapsed extends StatelessWidget {
 }
 
 class CuacaDisiniIsCollapsed extends StatelessWidget {
+  CuacaDisiniIsCollapsed({
+    this.onTap,
+  });
+
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -112,7 +124,7 @@ class CuacaDisiniIsCollapsed extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: (){},
+                onTap: onTap,
                 borderRadius: BorderRadius.circular(18.0),
                 child: Padding(
                   padding: EdgeInsets.all(15.0),
@@ -210,6 +222,119 @@ class KotaFavorit extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ItemListTambahKotaPencarianSebelumnya extends StatelessWidget {
+  ItemListTambahKotaPencarianSebelumnya({
+    this.kota,
+    this.kabDanProvinsi,
+    this.suhu,
+    this.kondisi,
+  });
+
+  final String kota;
+  final String kabDanProvinsi;
+  final String suhu;
+  final String kondisi;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: <Widget>[Expanded(child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
+        color: Colors.grey[300]
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: (){},
+          borderRadius: BorderRadius.circular(15.0),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(kota, style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 16.0, color: MyConstants().weatherDarkBackground)),
+                    Text(kabDanProvinsi, style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 16.0, color: MyConstants().weatherDarkBackground)),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(suhu, style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 16.0, color: MyConstants().weatherDarkBackground)),
+                    SizedBox(width: 5.0),
+                    Icon(LineAwesomeIcons.minus, color: MyConstants().weatherDarkBackground,),
+                    SizedBox(width: 5.0),
+                    Text(kondisi, style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 16.0, color: MyConstants().weatherDarkBackground),),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),)],);
+  }
+}
+
+class TabButton extends StatelessWidget {
+  TabButton({
+    this.onTap,
+    this.text,
+    this.active,
+  });
+
+  final VoidCallback onTap;
+  final String text;
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(15.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
+          child: Text(text, style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 18.0, color: active ? Colors.white : Colors.white30),),
+        ),
+      ),
+    );
+  }
+}
+
+class KondisiPerJam extends StatelessWidget {
+  KondisiPerJam({
+    this.jam,
+    this.imgAsset,
+    this.percent,
+  });
+
+  final String jam;
+  final String imgAsset;
+  final String percent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150.0,
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(jam, style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),),
+          SizedBox(height: 5.0,),
+          Expanded(
+            child: Image.asset(imgAsset,),
+          ),
+          SizedBox(height: 5.0,),
+          Text(percent, style: GoogleFonts.roboto(fontWeight: FontWeight.w600, fontSize: 18.0, color: Colors.white),),
+        ],
       ),
     );
   }
