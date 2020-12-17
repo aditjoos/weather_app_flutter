@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:weather_app_flutter_ui_challenge/components/myWidgets.dart';
 import 'package:weather_app_flutter_ui_challenge/pages/detailCuaca.dart';
 import 'package:weather_app_flutter_ui_challenge/pages/mainPage.dart';
+import 'package:weather_app_flutter_ui_challenge/pages/pengaturan.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,8 +34,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _isPengaturanOpened = false;
   bool _isTambahKotaOpened = false;
-
   bool _isDetailCuacaOpened = false;
+
+  bool _isOverlay = false;
+
+  String asset;
+  bool isTerang;
+  List<String> listJamHariIni = ['13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00','1:00','2:00','3:00','4:00','5:00','6:00',];
+  List<int> listPersenHariIni;
+
+  @override
+  void initState() {
+    super.initState();
+
+    asset = assetDark;
+    isTerang = false;
+    listPersenHariIni = listPersenHariIniDark;
+  }
+
+  String assetDark = 'assets/png/weather/glass/thunder.png';
+  List<int> listPersenHariIniDark = [70,60,60,50,50,40,50,50,40,40,40,40,40,40,40,40,40,40,];
+
+  String assetLight = 'assets/png/weather/glass/partly_cloudy.png';
+  List<int> listPersenHariIniLight = [30,20,20,30,40,40,40,40,40,50,50,50,50,40,40,40,40,40,];
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +76,35 @@ class _MyHomePageState extends State<MyHomePage> {
           /// tampilan utama
           Positioned.fill(
             child: MainPageLayout(
-              onTapTambahKota: () => setState(() => _isTambahKotaOpened = true),
-              onTapPengaturan: () => setState(() => _isPengaturanOpened = true),
-              onTapCuacaSekarang: () => setState(() => _isDetailCuacaOpened = true),
+              onTapTambahKota: () => setState(() {
+                _isTambahKotaOpened = true;
+                _isOverlay = true;
+              }),
+              onTapPengaturan: () => setState(() {
+                _isPengaturanOpened = true;
+                _isOverlay = true;
+              }),
+              onTapCuacaSekarang: () => setState(() {
+                asset = assetDark;
+                isTerang = false;
+                listPersenHariIni = listPersenHariIniDark;
+
+                _isDetailCuacaOpened = true;
+                _isOverlay = true;
+              }),
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetLight;
+                        isTerang = true;
+                        listPersenHariIni = listPersenHariIniLight;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: true,
                       namaKota: 'Malang',
                       suhu: 27,
@@ -72,6 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       gambarIconCuaca: 'assets/png/weather/glass/partly_cloudy.png',
                     ),
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetDark;
+                        isTerang = false;
+                        listPersenHariIni = listPersenHariIniDark;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: false,
                       namaKota: 'Lawang',
                       suhu: 21,
@@ -85,6 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetDark;
+                        isTerang = false;
+                        listPersenHariIni = listPersenHariIniDark;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: false,
                       namaKota: 'Purwodadi',
                       suhu: 20,
@@ -92,6 +148,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       gambarIconCuaca: 'assets/png/weather/glass/thunder.png',
                     ),
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetLight;
+                        isTerang = true;
+                        listPersenHariIni = listPersenHariIniLight;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: true,
                       namaKota: 'Pasuruan',
                       suhu: 28,
@@ -105,6 +169,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetLight;
+                        isTerang = true;
+                        listPersenHariIni = listPersenHariIniLight;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: true,
                       namaKota: 'Sukerojo',
                       suhu: 29,
@@ -112,6 +184,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       gambarIconCuaca: 'assets/png/weather/glass/sunny.png',
                     ),
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetLight;
+                        isTerang = true;
+                        listPersenHariIni = listPersenHariIniLight;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: true,
                       namaKota: 'Pandaan',
                       suhu: 30,
@@ -125,6 +205,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     KotaFavorit(
+                      onTap: () => setState(() {
+                        asset = assetDark;
+                        isTerang = false;
+                        listPersenHariIni = listPersenHariIniDark;
+
+                        _isDetailCuacaOpened = true;
+                        _isOverlay = true;
+                      }),
                       isTerang: false,
                       namaKota: 'Arjosari',
                       suhu: 23,
@@ -142,14 +230,17 @@ class _MyHomePageState extends State<MyHomePage> {
           /// atau panel untuk mencari kota.
           Positioned.fill(
             child: AnimatedCrossFade(
-              crossFadeState: _isTambahKotaOpened ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              crossFadeState: _isOverlay ? CrossFadeState.showFirst : CrossFadeState.showSecond,
               duration: Duration(milliseconds: 500),
               firstCurve: Curves.easeInOutCubic,
               secondCurve: Curves.easeInOutCubic,
               firstChild: GestureDetector(
-                onTap: () => setState(() => _isTambahKotaOpened = false),
+                onTap: () => setState(() {
+                  _isTambahKotaOpened = false;
+                  _isOverlay = false;
+                }),
                 child: Container(
-                  color: Colors.black45,
+                  color: Colors.black54,
                 ),
               ),
               secondChild: Container(
@@ -171,74 +262,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(18.0)),
                 color: MyConstants().backgroundColor,
               ),
-              child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 35.0,),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () => setState(() => _isTambahKotaOpened = false),
-                              borderRadius: BorderRadius.circular(15.0),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(LineAwesomeIcons.arrow_left, color: MyConstants().weatherDarkBackground,),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10.0,),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                              child: Text('Cari kota...', style: TextStyle(color: Colors.grey),),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  color: Colors.grey,
-                                  width: 1.0
-                                )
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.0,),
-                    Text('Pencarian sebelumnya', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.black54),),
-                    SizedBox(height: 20.0,),
-                    ItemListTambahKotaPencarianSebelumnya(
-                      kota: 'Bululawang, ',
-                      kabDanProvinsi: 'Kab. Malang, Jawa Timur.',
-                      suhu: '26°C',
-                      kondisi: 'Cerah berawan',
-                    ),
-                    SizedBox(height: 10.0),
-                    ItemListTambahKotaPencarianSebelumnya(
-                      kota: 'Batu, ',
-                      kabDanProvinsi: 'Malang, Jawa Timur.',
-                      suhu: '22°C',
-                      kondisi: 'Hujan dan petir',
-                    ),
-                  ],
-                ),
+              child: TambahKotaPencarian(
+                onTap: () => setState(() {
+                  _isTambahKotaOpened = false;
+                  _isOverlay = false;
+                })
               ),
             ),
+          ),
+
+          /// panel untuk halaman pengaturan aplikasi
+          Positioned(
+            left: 0,
+            child: PengaturanPage(
+              onPressed: () => setState(() {
+                _isPengaturanOpened = false;
+                _isOverlay = false;
+              }),
+              width: _isPengaturanOpened ? MediaQuery.of(context).size.width : 0,
+            )
           ),
 
           /// panel untuk halaman detail cuaca
           Positioned(
             right: 0,
             child: DetailCuacaPage(
-              onPressed: () => setState(() => _isDetailCuacaOpened = false),
+              onPressed: () => setState(() {
+                _isDetailCuacaOpened = false;
+                _isOverlay = false;
+              }),
+              isTerang: isTerang,
               width: _isDetailCuacaOpened ? MediaQuery.of(context).size.width : 0,
+              asset: asset,
+              listJamHariIni: listJamHariIni,
+              listPersenHariIni: listPersenHariIni,
             )
           ),
         ],

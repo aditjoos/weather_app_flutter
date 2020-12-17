@@ -2,18 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:weather_app_flutter_ui_challenge/components/myWidgets.dart';
+import 'package:weather_app_flutter_ui_challenge/pages/detailCuacaTabPage/7Hari.dart';
+import 'package:weather_app_flutter_ui_challenge/pages/detailCuacaTabPage/besok.dart';
+import 'package:weather_app_flutter_ui_challenge/pages/detailCuacaTabPage/hariIni.dart';
 
-class DetailCuacaPage extends StatelessWidget {
+class DetailCuacaPage extends StatefulWidget {
   DetailCuacaPage({
     this.onPressed,
+    this.isTerang,
     this.width,
+    this.asset,
+    this.listJamHariIni,
+    this.listPersenHariIni,
   });
 
   final VoidCallback onPressed;
+
+  final bool isTerang;
+
   final double width;
 
-  var listJamHariIni = ['13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00','1:00','2:00','3:00','4:00','5:00','6:00',];
-  var listPersenHariIni = [70,60,60,50,50,40,50,50,40,40,40,40,40,40,40,40,40,40,];
+  final String asset;
+
+  final List<String> listJamHariIni;
+
+  final List<int> listPersenHariIni;
+
+  @override
+  _DetailCuacaPageState createState() => _DetailCuacaPageState();
+}
+
+class _DetailCuacaPageState extends State<DetailCuacaPage> {
 
   var listAssets = [
     'assets/png/weather/glass/cloudy.png',
@@ -23,13 +42,15 @@ class DetailCuacaPage extends StatelessWidget {
     'assets/png/weather/glass/thunder.png',
   ];
 
+  int tabPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 350),
       curve: Curves.easeInOutCubic,
-      width: width,
-      color: MyConstants().weatherDarkBackground,
+      width: widget.width,
+      color: widget.isTerang ? MyConstants().weatherLightBackground : MyConstants().weatherDarkBackground,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         physics: NeverScrollableScrollPhysics(),
@@ -47,7 +68,7 @@ class DetailCuacaPage extends StatelessWidget {
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: onPressed,
+                      onTap: widget.onPressed,
                       borderRadius: BorderRadius.circular(15.0),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
@@ -58,8 +79,8 @@ class DetailCuacaPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text('Purwosari', style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 18.0, color: Colors.white)),
-                      Text('Kab. Pasuruan, Jawa Timur.', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),)
+                      Text(widget.isTerang ? 'Malang' : 'Purwosari', style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 18.0, color: Colors.white)),
+                      Text(widget.isTerang ? 'Malang, Jawa timur.' : 'Kab. Pasuruan, Jawa Timur.', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),)
                     ],
                   ),
                 ],
@@ -69,19 +90,19 @@ class DetailCuacaPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TabButton(
-                    onTap: (){},
+                    onTap: () => setState(() => tabPage = 0),
                     text: 'Hari Ini',
-                    active: true,
+                    active: tabPage == 0 ? true : false,
                   ),
                   TabButton(
-                    onTap: (){},
+                    onTap: () => setState(() => tabPage = 1),
                     text: 'Besok',
-                    active: false,
+                    active: tabPage == 1 ? true : false,
                   ),
                   TabButton(
-                    onTap: (){},
+                    onTap: () => setState(() => tabPage = 2),
                     text: '7 Hari',
-                    active: false,
+                    active: tabPage == 2 ? true : false,
                   ),
                 ],
               ),
@@ -89,108 +110,16 @@ class DetailCuacaPage extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 15.0,),
-                      Image.asset('assets/png/weather/glass/thunder.png', width: 250,),
-                      SizedBox(height: 15.0,),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Selasa, 8 Desember', style: GoogleFonts.roboto(fontWeight: FontWeight.w400, fontSize: 18.0, color: MyConstants().blueAccent),),
-                          Text('Hujan dan petir.', style: GoogleFonts.roboto(fontWeight: FontWeight.w600, fontSize: 18.0, color: Colors.white),),
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            child: Row(
-                              children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text('Angin', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),),
-                                    SizedBox(height: 3.0,),
-                                    Text('Kelembaban', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),),
-                                    SizedBox(height: 3.0,),
-                                    Text('Indeks UV', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),),
-                                    SizedBox(height: 3.0,),
-                                    Text('Tekanan', style: GoogleFonts.roboto(fontWeight: FontWeight.w500, fontSize: 16.0, color: Colors.white),),
-                                  ],
-                                ),
-                                SizedBox(width: 20.0,),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text('20,1km/j', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),),
-                                    Text('88%', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),),
-                                    Text('2', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),),
-                                    Text('850mb', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.white),),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text('22°C', style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 60.0, color: MyConstants().blueAccent)),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(LineAwesomeIcons.arrow_up, color: Colors.white, size: 14.0,),
-                                      Text('25°C', style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 16.0, color: Colors.white)),
-                                    ],
-                                  ),
-                                  SizedBox(width: 10.0,),
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(LineAwesomeIcons.arrow_down, color: Colors.white, size: 14.0,),
-                                      Text('18°C', style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, fontSize: 16.0, color: Colors.white)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 25.0,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Icon(LineAwesomeIcons.umbrella, color: Colors.white, size: 18.0,),
-                          Text(' Kemungkinan hujan adalah 90%', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0, color: Colors.white)),
-                        ],
-                      ),
-                      SizedBox(height: 15.0,),
-                      Container(
-                        width: MediaQuery.of(context).size.width - 40.0,
-                        height: 150.0,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.all(15.0),
-                          physics: BouncingScrollPhysics(),
-                          itemCount: listJamHariIni.length,
-                          itemBuilder: (context, index) => KondisiPerJam(
-                            jam: listJamHariIni[index],
-                            imgAsset: listPersenHariIni[index] < 30 ? listAssets[3] :
-                              listPersenHariIni[index] >= 30 && listPersenHariIni[index] < 40 ? listAssets[1] :
-                              listPersenHariIni[index] >= 40 && listPersenHariIni[index] < 50 ? listAssets[0] :
-                              listPersenHariIni[index] >= 50 && listPersenHariIni[index] < 70 ? listAssets[2] :
-                              listPersenHariIni[index] >= 70 && listPersenHariIni[index] < 101 ? listAssets[4] : listAssets[3],
-                            percent: listPersenHariIni[index].toString() + '%',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: tabPage == 0 ? DetailCuacaHariIni(
+                    asset: widget.asset,
+                    isTerang: widget.isTerang,
+                    listJamHariIni: widget.listJamHariIni,
+                    listPersenHariIni: widget.listPersenHariIni,
+                    listAssets: listAssets,
+                  ) : tabPage == 1 ? DetailCuacaBesok(
+                    isTerang: widget.isTerang,
+                    listAssets: listAssets,
+                  ) : DetailCuaca7Hari(),
                 ),
               ),
             ],

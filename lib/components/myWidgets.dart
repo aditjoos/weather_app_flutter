@@ -170,6 +170,7 @@ class CuacaDisiniIsCollapsed extends StatelessWidget {
 
 class KotaFavorit extends StatelessWidget {
   KotaFavorit({
+    this.onTap,
     this.isTerang,
     this.namaKota,
     this.suhu,
@@ -177,6 +178,7 @@ class KotaFavorit extends StatelessWidget {
     this.gambarIconCuaca,
   });
 
+  final VoidCallback onTap;
   final bool isTerang;
   final String namaKota;
   final int suhu;
@@ -194,7 +196,7 @@ class KotaFavorit extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: (){},
+          onTap: onTap,
           borderRadius: BorderRadius.circular(18.0),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
@@ -222,6 +224,77 @@ class KotaFavorit extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TambahKotaPencarian extends StatelessWidget {
+  TambahKotaPencarian({
+    this.onTap,
+  });
+
+  final VoidCallback onTap;
+  
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 35.0,),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onTap,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(LineAwesomeIcons.arrow_left, color: MyConstants().weatherDarkBackground,),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10.0,),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    child: Text('Cari kota...', style: TextStyle(color: Colors.grey),),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      border: Border.all(
+                        style: BorderStyle.solid,
+                        color: Colors.grey,
+                        width: 1.0
+                      )
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10.0,),
+          Text('Pencarian sebelumnya', style: GoogleFonts.roboto(fontWeight: FontWeight.w300, fontSize: 16.0, color: Colors.black54),),
+          SizedBox(height: 20.0,),
+          ItemListTambahKotaPencarianSebelumnya(
+            kota: 'Bululawang, ',
+            kabDanProvinsi: 'Kab. Malang, Jawa Timur.',
+            suhu: '26°C',
+            kondisi: 'Cerah berawan',
+          ),
+          SizedBox(height: 10.0),
+          ItemListTambahKotaPencarianSebelumnya(
+            kota: 'Batu, ',
+            kabDanProvinsi: 'Malang, Jawa Timur.',
+            suhu: '22°C',
+            kondisi: 'Hujan dan petir',
+          ),
+        ],
       ),
     );
   }
