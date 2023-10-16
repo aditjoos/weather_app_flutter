@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:weather_app_flutter_ui_challenge/components/myWidgets.dart';
-import 'package:weather_app_flutter_ui_challenge/pages/detailCuaca.dart';
-import 'package:weather_app_flutter_ui_challenge/pages/mainPage.dart';
-import 'package:weather_app_flutter_ui_challenge/pages/pengaturan.dart';
+import 'package:weather_app_flutter/components/myWidgets.dart';
+import 'package:weather_app_flutter/pages/detailCuaca.dart';
+import 'package:weather_app_flutter/pages/mainPage.dart';
+import 'package:weather_app_flutter/pages/pengaturan.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -20,28 +22,48 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class MyHomePageState extends State<MyHomePage> {
   bool _isPengaturanOpened = false;
   bool _isTambahKotaOpened = false;
   bool _isDetailCuacaOpened = false;
 
   bool _isOverlay = false;
 
-  String asset;
-  bool isTerang;
-  List<String> listJamHariIni = ['13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00','1:00','2:00','3:00','4:00','5:00','6:00',];
-  List<int> listPersenHariIni;
+  String asset = '';
+  bool isTerang = false;
+  List<String> listJamHariIni = [
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    '24:00',
+    '1:00',
+    '2:00',
+    '3:00',
+    '4:00',
+    '5:00',
+    '6:00',
+  ];
+  List<int> listPersenHariIni = [];
 
   @override
   void initState() {
@@ -53,21 +75,57 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String assetDark = 'assets/png/weather/glass/thunder.png';
-  List<int> listPersenHariIniDark = [70,60,60,50,50,40,50,50,40,40,40,40,40,40,40,40,40,40,];
+  List<int> listPersenHariIniDark = [
+    70,
+    60,
+    60,
+    50,
+    50,
+    40,
+    50,
+    50,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+  ];
 
   String assetLight = 'assets/png/weather/glass/partly_cloudy.png';
-  List<int> listPersenHariIniLight = [30,20,20,30,40,40,40,40,40,50,50,50,50,40,40,40,40,40,];
+  List<int> listPersenHariIniLight = [
+    30,
+    20,
+    20,
+    30,
+    40,
+    40,
+    40,
+    40,
+    40,
+    50,
+    50,
+    50,
+    50,
+    40,
+    40,
+    40,
+    40,
+    40,
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // statusBarColor: MyConstants().backgroundColor,
-      // statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarDividerColor: Colors.grey[400],
-      systemNavigationBarColor: MyConstants().backgroundColor,
-      systemNavigationBarIconBrightness: Brightness.dark
-    ));
+        // statusBarColor: MyConstants().backgroundColor,
+        // statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarDividerColor: Colors.grey[400],
+        systemNavigationBarColor: MyConstants().backgroundColor,
+        systemNavigationBarIconBrightness: Brightness.dark));
 
     return Scaffold(
       backgroundColor: MyConstants().backgroundColor,
@@ -109,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       namaKota: 'Malang',
                       suhu: 27,
                       kondisi: 'Cerah berawan',
-                      gambarIconCuaca: 'assets/png/weather/glass/partly_cloudy.png',
+                      gambarIconCuaca:
+                          'assets/png/weather/glass/partly_cloudy.png',
                     ),
                     KotaFavorit(
                       onTap: () => setState(() {
@@ -128,7 +187,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -164,7 +225,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -200,7 +263,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -221,7 +286,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20.0,),
+                const SizedBox(
+                  height: 20.0,
+                ),
               ],
             ),
           ),
@@ -230,8 +297,10 @@ class _MyHomePageState extends State<MyHomePage> {
           /// atau panel untuk mencari kota.
           Positioned.fill(
             child: AnimatedCrossFade(
-              crossFadeState: _isOverlay ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(milliseconds: 500),
+              crossFadeState: _isOverlay
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: const Duration(milliseconds: 500),
               firstCurve: Curves.easeInOutCubic,
               secondCurve: Curves.easeInOutCubic,
               firstChild: GestureDetector(
@@ -253,51 +322,52 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned(
             top: 0,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOutCubic,
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
               width: MediaQuery.of(context).size.width,
               height: _isTambahKotaOpened ? 305 : 0,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(18.0)),
+                borderRadius:
+                    const BorderRadius.vertical(bottom: Radius.circular(18.0)),
                 color: MyConstants().backgroundColor,
               ),
               child: TambahKotaPencarian(
-                onTap: () => setState(() {
-                  _isTambahKotaOpened = false;
-                  _isOverlay = false;
-                })
-              ),
+                  onTap: () => setState(() {
+                        _isTambahKotaOpened = false;
+                        _isOverlay = false;
+                      })),
             ),
           ),
 
           /// panel untuk halaman pengaturan aplikasi
           Positioned(
-            left: 0,
-            child: PengaturanPage(
-              onPressed: () => setState(() {
-                _isPengaturanOpened = false;
-                _isOverlay = false;
-              }),
-              width: _isPengaturanOpened ? MediaQuery.of(context).size.width : 0,
-            )
-          ),
+              left: 0,
+              child: PengaturanPage(
+                onPressed: () => setState(() {
+                  _isPengaturanOpened = false;
+                  _isOverlay = false;
+                }),
+                width:
+                    _isPengaturanOpened ? MediaQuery.of(context).size.width : 0,
+              )),
 
           /// panel untuk halaman detail cuaca
           Positioned(
-            right: 0,
-            child: DetailCuacaPage(
-              onPressed: () => setState(() {
-                _isDetailCuacaOpened = false;
-                _isOverlay = false;
-              }),
-              isTerang: isTerang,
-              width: _isDetailCuacaOpened ? MediaQuery.of(context).size.width : 0,
-              asset: asset,
-              listJamHariIni: listJamHariIni,
-              listPersenHariIni: listPersenHariIni,
-            )
-          ),
+              right: 0,
+              child: DetailCuacaPage(
+                onPressed: () => setState(() {
+                  _isDetailCuacaOpened = false;
+                  _isOverlay = false;
+                }),
+                isTerang: isTerang,
+                width: _isDetailCuacaOpened
+                    ? MediaQuery.of(context).size.width
+                    : 0,
+                asset: asset,
+                listJamHariIni: listJamHariIni,
+                listPersenHariIni: listPersenHariIni,
+              )),
         ],
       ),
     );
